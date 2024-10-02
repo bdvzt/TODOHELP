@@ -46,7 +46,6 @@ struct ListView: View {
                             }
                         }
                         .onDelete(perform: deleteTask)
-                        //                .onMove(perform: listViewModel.move)
                     }
                     .listStyle(PlainListStyle())
                     .navigationTitle("TO-DO LIST")
@@ -59,17 +58,14 @@ struct ListView: View {
     }
     
     func deleteTask(at offsets: IndexSet) {
-        // Get the tasks to be deleted from the index set
         let tasksToDelete = offsets.map { listViewModel.tasks[$0] }
 
-        // Delete tasks from the listViewModel
         for task in tasksToDelete {
             let newTask = TaskModelDelete(id: task.id)
             listViewModel.deleteTask(task: newTask) { result in
                 // Handle the result of the deletion
                 switch result {
                 case .success:
-                    // Deletion successful
                     print("Task deleted successfully!")
                 case .failure(let error):
                     // Deletion failed, handle the error
@@ -78,27 +74,6 @@ struct ListView: View {
             }
         }
     }
-    
-//    func updateTask(at offsets: IndexSet) {
-//        // Get the tasks to be deleted from the index set
-//        let tasksToDelete = offsets.map { listViewModel.tasks[$0] }
-//
-//        // Delete tasks from the listViewModel
-//        for task in tasksToDelete {
-//            let newTask = TaskModelUpdate(status: task.status)
-//            listViewModel.updateTask(task: newTask) { result in
-//                // Handle the result of the deletion
-//                switch result {
-//                case .success:
-//                    // Deletion successful
-//                    print("Task deleted successfully!")
-//                case .failure(let error):
-//                    // Deletion failed, handle the error
-//                    print("Error deleting task: (error.localizedDescription)")
-//                }
-//            }
-//        }
-//    }
 }
 
     

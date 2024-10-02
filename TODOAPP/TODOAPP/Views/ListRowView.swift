@@ -1,12 +1,17 @@
 import SwiftUI
 
 struct ListRowView: View {
+    @EnvironmentObject var listViewModel: ListViewModel
     let task: TaskModel
     
     var body: some View {
         HStack{
             Image(systemName: task.status ? "checkmark.circle" : "circle")
                 .foregroundColor(task.status ? .green : .red)
+                .onTapGesture {
+                                    let newTask = TaskModelUpdate(id: task.id, status: !task.status)
+                                    listViewModel.updateTask(task: newTask)
+                                }
             Text(task.description)
             Spacer()
         }
