@@ -125,11 +125,11 @@ class ListViewModel: ObservableObject {
                 }
                
                 completion(.success(()))
+                self.getTasks() 
             }.resume()
             
         } else {
             completion(.failure(NSError(domain: "EncodingError", code: 0, userInfo: nil)))
         }
-        getTasks()
     }
 }
