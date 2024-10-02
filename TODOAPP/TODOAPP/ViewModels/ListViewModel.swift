@@ -157,4 +157,47 @@ class ListViewModel: ObservableObject {
             }.resume()
         }
     }
+    
+    
+    func updateTask(task: TaskModelUpdate) {
+        guard let url = URL(string: "\(localhost)/COMPLETED") else {
+            return
+        }
+        
+        let encoder = JSONEncoder()
+        if let jsonData = try? encoder.encode(task) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "PATCH"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    return
+                }
+                self.getTasks()
+            }.resume()
+        }
+    }
+    
+    func editTask(task: TaskModelEdit) {
+        guard let url = URL(string: "\(localhost)/UPDATE") else {
+            return
+        }
+        
+        let encoder = JSONEncoder()
+        if let jsonData = try? encoder.encode(task) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "PATCH"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    return
+                }
+                self.getTasks()
+            }.resume()
+        }
+    }
 }

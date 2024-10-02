@@ -59,48 +59,6 @@ struct AddView: View {
             }
         presentationMode.wrappedValue.dismiss()
         }
-
-
-
-    
-//    func addTask() {
-//        if check() {
-//            // Создаем новую задачу (id теперь не нужен)
-//            let newTask = TaskModel(Description: textFieldText, isDone: false)
-//
-//            // Вызываем функцию для создания задачи на бэкенде
-//            TaskService().addTask(task: newTask) { result in
-//                switch result {
-//                case .success:
-//                    // Задача успешно добавлена, закрываем представление
-//                    presentationMode.wrappedValue.dismiss()
-//                case .failure(let error):
-//                    // Произошла ошибка при добавлении задачи
-//                    alertText = "Error adding task: \(error.localizedDescription)"
-//                    isAlert = true
-//                }
-//            }
-//        } else {
-//            // ...
-//        }
-//    }
-    
-//    func addTask() {
-//        if check() {
-//            listViewModel.add(description: textFieldText)
-//            presentationMode.wrappedValue.dismiss()
-//        } else {
-//            print("Invalid task description")
-//        }
-//    }
-    
-    func check() -> Bool {
-        if textFieldText.count < 1 {
-            isAlert = true // Устанавливаем isAlert в true для показа оповещения
-            return false
-        }
-        return true
-    }
 }
 
 struct AddView_Previews: PreviewProvider {

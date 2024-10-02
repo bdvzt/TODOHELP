@@ -20,15 +20,15 @@ struct EditView: View {
                     .frame(height: 80)
                     .background(bg)
                     .cornerRadius(20)
-//                Button(action: editTask, label:{
-//                    Text ("Save")
-//                        .foregroundColor(.white)
-//                        .font(.headline)
-//                        .frame(height: 60)
-//                        .frame(maxWidth: .infinity)
-//                        .background(Color.pink)
-//                        .cornerRadius(20)
-//                })
+                Button(action: editTask, label:{
+                    Text ("Save")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .frame(height: 60)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.pink)
+                        .cornerRadius(20)
+                })
             }
             .padding(14)
         }
@@ -49,6 +49,18 @@ struct EditView: View {
 //        }
 //    }
     
+    func editTask() {
+            if textFieldText.isEmpty {
+                isAlert = true
+                return
+            }
+            
+        let newTask = TaskModelEdit(id: task.id, description: textFieldText)
+        listViewModel.editTask(task: newTask)
+            
+        presentationMode.wrappedValue.dismiss()
+        }
+    
     func check()->Bool{
         if textFieldText.count < 1 {
             isAlert.toggle()
@@ -64,7 +76,7 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        var testTask = TaskModel(id: UUID(), description: "d", status: false)
+        let testTask = TaskModel(id: UUID(), description: "d", status: false)
             
 
 //        let testTask = TaskModel(Id: "1", Description: "Test Task", Status: false)
