@@ -5,39 +5,6 @@ struct ListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     
     var body: some View {
-//        VStack {
-//            List {
-//                ForEach(listViewModel.tasks) { task in
-//                    NavigationLink(destination: EditView(task: task)) {
-//                        ListRowView(task: task)
-//                            .onTapGesture {
-//                                withAnimation(.linear) {
-//                                    let newTask = TaskModelUpdate(id: task.id, status: task.status)
-//                                    listViewModel.updateTask(task: newTask){ result in
-//                                        // Handle the result of the deletion
-//                                        switch result {
-//                                        case .success:
-//                                            // Deletion successful
-//                                            print("Task deleted successfully!")
-//                                        case .failure(let error):
-//                                            // Deletion failed, handle the error
-//                                            print("Error deleting task: (error.localizedDescription)")
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                    }
-//                }
-//                .onDelete(perform: deleteTask)
-//                //                .onMove(perform: listViewModel.move)
-//            }
-//            .listStyle(PlainListStyle())
-//            .navigationTitle("TO-DO LIST")
-//            .navigationBarItems(
-//                leading: EditButton(),
-//                trailing: NavigationLink("Add", destination: AddView())
-//            )
-//        }
         VStack {
                     List {
                         ForEach(listViewModel.tasks) { task in
@@ -53,6 +20,18 @@ struct ListView: View {
                         leading: EditButton(),
                         trailing: NavigationLink("Add", destination: AddView())
                     )
+            Button(action: {
+                            listViewModel.getTasks()
+                        }) {
+                            Text("Refresh")
+                                .foregroundColor(.white)
+                                .font(.headline)
+                                .frame(height: 60)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.pink)
+                                .cornerRadius(20)
+                        }
+
                 }
         
     }

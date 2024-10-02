@@ -74,6 +74,7 @@ class ListViewModel: ObservableObject {
     init() {
         getTasks()
     }
+
     
     func getTasks() {
         guard let url = URL(string: "\(localhost)/GET") else {

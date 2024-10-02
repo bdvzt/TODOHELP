@@ -39,16 +39,6 @@ struct EditView: View {
         .alert(isPresented: $isAlert, content: getAlert)
     }
     
-//    func editTask(){
-//        if check(){
-//            listViewModel.editDescription(task: task, description: textFieldText)
-//            presentationMode.wrappedValue.dismiss()
-//        }
-//        else{
-//            
-//        }
-//    }
-    
     func editTask() {
             if textFieldText.isEmpty {
                 isAlert = true
