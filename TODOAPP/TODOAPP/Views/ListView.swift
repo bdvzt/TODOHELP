@@ -10,14 +10,14 @@ struct ListView: View {
                 ForEach(listViewModel.tasks) { task in
                     NavigationLink(destination: EditView(task: task)) {
                         ListRowView(task: task)
-//                            .onTapGesture {
-//                                withAnimation(.linear) {
+                            .onTapGesture {
+                                withAnimation(.linear) {
 //                                    listViewModel.updateItem(task: task)
-//                                }
-//                            }
+                                }
+                            }
                     }
                 }
-//                .onDelete(perform: listViewModel.delete)
+                .onDelete(perform: deleteTask)
 //                .onMove(perform: listViewModel.move)
             }
             .listStyle(PlainListStyle())
@@ -29,6 +29,28 @@ struct ListView: View {
         }
         
     }
+    
+    func deleteTask(at offsets: IndexSet) {
+        // Get the tasks to be deleted from the index set
+        let tasksToDelete = offsets.map { listViewModel.tasks[$0] }
+
+        // Delete tasks from the listViewModel
+        for task in tasksToDelete {
+            let newTask = TaskModelDelete(id: task.id)
+            listViewModel.deleteTask(task: newTask) { result in
+                // Handle the result of the deletion
+                switch result {
+                case .success:
+                    // Deletion successful
+                    print("Task deleted successfully!")
+                case .failure(let error):
+                    // Deletion failed, handle the error
+                    print("Error deleting task: (error.localizedDescription)")
+                }
+            }
+        }
+    }
+
 }
     
 struct ListView_Previews: PreviewProvider {

@@ -41,6 +41,21 @@ struct TaskModelAdd: Encodable {
     }
 }
 
+struct TaskModelDelete: Encodable {
+    let id: UUID
+
+    // Add the encode(to:) method
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+    }
+
+    // Add the CodingKeys enum
+    enum CodingKeys: String, CodingKey {
+        case id
+    }
+}
+
 
 
 //struct TaskModel: Identifiable, Codable{
