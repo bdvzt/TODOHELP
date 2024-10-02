@@ -10,15 +10,15 @@ struct ListView: View {
                 ForEach(listViewModel.tasks) { task in
                     NavigationLink(destination: EditView(task: task)) {
                         ListRowView(task: task)
-                            .onTapGesture {
-                                withAnimation(.linear) {
-                                    listViewModel.updateItem(task: task)
-                                }
-                            }
+//                            .onTapGesture {
+//                                withAnimation(.linear) {
+//                                    listViewModel.updateItem(task: task)
+//                                }
+//                            }
                     }
                 }
-                .onDelete(perform: listViewModel.delete)
-                .onMove(perform: listViewModel.move)
+//                .onDelete(perform: listViewModel.delete)
+//                .onMove(perform: listViewModel.move)
             }
             .listStyle(PlainListStyle())
             .navigationTitle("TO-DO LIST")

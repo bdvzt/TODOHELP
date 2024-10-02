@@ -5,8 +5,8 @@ struct ListRowView: View {
     
     var body: some View {
         HStack{
-            Image(systemName: task.isDone ? "checkmark.circle" : "circle")
-                .foregroundColor(task.isDone ? .green : .red)
+            Image(systemName: task.status ? "checkmark.circle" : "circle")
+                .foregroundColor(task.status ? .green : .red)
             Text(task.description)
             Spacer()
         }
@@ -16,17 +16,15 @@ struct ListRowView: View {
 }
 
 struct ListRowView_Previews: PreviewProvider {
-    
-    static var task1 = TaskModel(description: "d", isDone: false)
-    static var task2 = TaskModel(description: "d1", isDone: true)
-    
+    static var task1 = TaskModel(id: UUID(), description: "1", status: false)
+    static var task2 = TaskModel(id: UUID(), description: "2", status: true)
+
     static var previews: some View {
-        Group{
+        Group {
             ListRowView(task: task1)
-            ListRowView(task: task2 )
+            ListRowView(task: task2)
         }
         .previewLayout(.sizeThatFits)
     }
 }
-
 

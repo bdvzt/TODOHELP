@@ -1,6 +1,7 @@
 import SwiftUI
+import Foundation
 
-import SwiftUI
+import Alamofire
 
 struct AddView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -41,13 +42,57 @@ struct AddView: View {
     }
     
     func addTask() {
-        if check() {
-            listViewModel.add(description: textFieldText)
-            presentationMode.wrappedValue.dismiss()
-        } else {
-            print("Invalid task description")
+            if textFieldText.isEmpty {
+                isAlert = true
+                return
+            }
+            
+            let newTask = TaskModelAdd(description: textFieldText)
+            listViewModel.addTask(task: newTask) { result in
+                switch result {
+                case .success:
+                    presentationMode.wrappedValue.dismiss()
+                case .failure(_):
+                    print("Error adding task: (error)")
+                    // Обработайте ошибку, например, покажите уведомление пользователю
+                }
+            }
+        presentationMode.wrappedValue.dismiss()
         }
-    }
+
+
+
+    
+//    func addTask() {
+//        if check() {
+//            // Создаем новую задачу (id теперь не нужен)
+//            let newTask = TaskModel(Description: textFieldText, isDone: false)
+//
+//            // Вызываем функцию для создания задачи на бэкенде
+//            TaskService().addTask(task: newTask) { result in
+//                switch result {
+//                case .success:
+//                    // Задача успешно добавлена, закрываем представление
+//                    presentationMode.wrappedValue.dismiss()
+//                case .failure(let error):
+//                    // Произошла ошибка при добавлении задачи
+//                    alertText = "Error adding task: \(error.localizedDescription)"
+//                    isAlert = true
+//                }
+//            }
+//        } else {
+//            // ...
+//        }
+//    }
+    
+//    func addTask() {
+//        if check() {
+//            listViewModel.add(description: textFieldText)
+//            presentationMode.wrappedValue.dismiss()
+//        } else {
+//            print("Invalid task description")
+//        }
+//    }
     
     func check() -> Bool {
         if textFieldText.count < 1 {

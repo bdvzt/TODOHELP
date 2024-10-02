@@ -20,15 +20,15 @@ struct EditView: View {
                     .frame(height: 80)
                     .background(bg)
                     .cornerRadius(20)
-                Button(action: editTask, label:{
-                    Text ("Save")
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .frame(height: 60)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.pink)
-                        .cornerRadius(20)
-                })
+//                Button(action: editTask, label:{
+//                    Text ("Save")
+//                        .foregroundColor(.white)
+//                        .font(.headline)
+//                        .frame(height: 60)
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.pink)
+//                        .cornerRadius(20)
+//                })
             }
             .padding(14)
         }
@@ -39,15 +39,15 @@ struct EditView: View {
         .alert(isPresented: $isAlert, content: getAlert)
     }
     
-    func editTask(){
-        if check(){
-            listViewModel.editDescription(task: task, description: textFieldText)
-            presentationMode.wrappedValue.dismiss()
-        }
-        else{
-            
-        }
-    }
+//    func editTask(){
+//        if check(){
+//            listViewModel.editDescription(task: task, description: textFieldText)
+//            presentationMode.wrappedValue.dismiss()
+//        }
+//        else{
+//            
+//        }
+//    }
     
     func check()->Bool{
         if textFieldText.count < 1 {
@@ -64,7 +64,10 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        let testTask = TaskModel(description: "Test Task", isDone: false)
+        var testTask = TaskModel(id: UUID(), description: "d", status: false)
+            
+
+//        let testTask = TaskModel(Id: "1", Description: "Test Task", Status: false)
         let testViewModel = ListViewModel()
         testViewModel.tasks = [testTask]
         

@@ -1,6 +1,7 @@
 import Foundation
+import SwiftUI
 
-class ListViewModel: ObservableObject{
+/*class ListViewModel: ObservableObject{
     @Published var tasks: [TaskModel] = [] {
         didSet {
             save()
@@ -62,126 +63,73 @@ class ListViewModel: ObservableObject{
         }
     }
 }
+*/
 
-//class ListViewModel: ObservableObject {
-//    @Published var tasks: [TaskModel] = [] 
-//    
-//    let itemsKey: String = "items_list"
-//    let baseURL = "http://localhost:5222/api/Task"
-//
-//    init() {
-//        getTasks()
-//    }
-//    
-//    func getTasks() {
-//        guard let url = URL(string: "\(baseURL)/GET") else { return }
-//        
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            if let error = error {
-//                print("Ошибка: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            guard let data = data else { return }
-//            
-//            do {
-//                let decodedTasks = try JSONDecoder().decode([TaskModel].self, from: data)
-//                DispatchQueue.main.async {
-//                    self.tasks = decodedTasks
-//                }
-//            } catch {
-//                print("Ошибка декодирования: \(error.localizedDescription)")
-//            }
-//        }
-//        task.resume()
-//    }
 
-//    func add(description: String) {
-//        let newItem = TaskModel(description: description, isDone: false)
-//        guard let url = URL(string: "\(baseURL)/CREATE") else { return }
-//        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        
-//        do {
-//            let jsonData = try JSONEncoder().encode(newItem)
-//            request.httpBody = jsonData
-//            
-//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//                if let error = error {
-//                    print("Ошибка: \(error.localizedDescription)")
-//                    return
-//                }
-//                
-//                // Обновляем локальный массив задач
-//                DispatchQueue.main.async {
-//                    self.tasks.append(newItem)
-//                }
-//            }
-//            task.resume()
-//        } catch {
-//            print("Ошибка при кодировании: \(error.localizedDescription)")
-//        }
-//    }
-//
-//    func delete(indexSet: IndexSet) {
-//        guard let index = indexSet.first else { return }
-//        let taskToDelete = tasks[index]
-//        
-//        guard let url = URL(string: "\(baseURL)/DELETE") else { return }
-//        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "DELETE"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        
-//        do {
-//            let jsonData = try JSONEncoder().encode(taskToDelete)
-//            request.httpBody = jsonData
-//            
-//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//                if let error = error {
-//                    print("Ошибка: \(error.localizedDescription)")
-//                    return
-//                }
-//                
-//                DispatchQueue.main.async {
-//                    self.tasks.remove(atOffsets: indexSet)
-//                }
-//            }
-//            task.resume()
-//        } catch {
-//            print("Ошибка при кодировании: \(error.localizedDescription)")
-//        }
-//    }
-//
-//    func updateItem(task: TaskModel) {
-//        guard let url = URL(string: "\(baseURL)/UPDATE") else { return }
-//        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "PATCH"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        
-//        do {
-//            let jsonData = try JSONEncoder().encode(task)
-//            request.httpBody = jsonData
-//            let taskUpdate = URLSession.shared.dataTask(with: request) { data, response, error in
-//                            if let error = error {
-//                                print("Ошибка: \(error.localizedDescription)")
-//                                return
-//                            }
-//                            
-//                            DispatchQueue.main.async {
-//                                if let index = self.tasks.firstIndex(where: { $0.id == task.id }) {
-//                                    self.tasks[index] = task.updateDone() // или любая другая логика обновления
-//                                }
-//                            }
-//                        }
-//                        taskUpdate.resume()
-//                    } catch {
-//                        print("Ошибка при кодировании: \(error.localizedDescription)")
-//                    }
-//                }
+class ListViewModel: ObservableObject {
+    @Published var tasks: [TaskModel] = []
 
-                // Другие методы...
-//            }
+    private let localhost = "http://localhost:5222/api/Task"
+
+    init() {
+        getTasks()
+    }
+
+    func getTasks() {
+        guard let url = URL(string: "\(localhost)/GET") else {
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Ошибка при выполнении: \(error.localizedDescription)")
+                return
+            }
+
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    if let tasks = try? decoder.decode([TaskModel].self, from: data) {
+                        print("Полученные карточки: \(tasks)")
+                        DispatchQueue.main.async {
+                            self.tasks = tasks
+                        }
+                    } else {
+                        print("Ошибка декодирования JSON")
+                    }
+                } catch {
+                    print("Ошибка: \(error)")
+                }
+            }
+        }.resume()
+    }
+
+    func addTask(task: TaskModelAdd, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "\(localhost)/CREATE") else {
+            completion(.failure(NSError(domain: "InvalidURL", code: 0, userInfo: nil)))
+            return
+        }
+        
+        let encoder = JSONEncoder()
+        if let jsonData = try? encoder.encode(task) { // Теперь работает
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+               
+                completion(.success(()))
+            }.resume()
+            
+        } else {
+            completion(.failure(NSError(domain: "EncodingError", code: 0, userInfo: nil)))
+        }
+        getTasks()
+    }
+}

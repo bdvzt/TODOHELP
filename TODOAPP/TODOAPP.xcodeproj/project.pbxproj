@@ -16,6 +16,8 @@
 		88CEE2232CAC90FD00A07FED /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEE21E2CAC90FD00A07FED /* EditView.swift */; };
 		88CEE2242CAC90FD00A07FED /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEE21F2CAC90FD00A07FED /* ListRowView.swift */; };
 		88CEE2252CAC90FD00A07FED /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEE2202CAC90FD00A07FED /* ListView.swift */; };
+		88CEE2282CAD2F1300A07FED /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 88CEE2272CAD2F1300A07FED /* Alamofire */; };
+		88CEE22A2CAD349500A07FED /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CEE2292CAD349500A07FED /* TaskService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,7 @@
 		88CEE21E2CAC90FD00A07FED /* EditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		88CEE21F2CAC90FD00A07FED /* ListRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 		88CEE2202CAC90FD00A07FED /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		88CEE2292CAD349500A07FED /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88CEE2282CAD2F1300A07FED /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +71,7 @@
 				88CEE2092CAC8FF300A07FED /* TODOAPPApp.swift */,
 				88CEE20D2CAC8FF500A07FED /* Assets.xcassets */,
 				88CEE20F2CAC8FF500A07FED /* Preview Content */,
+				88CEE2292CAD349500A07FED /* TaskService.swift */,
 			);
 			path = TODOAPP;
 			sourceTree = "<group>";
@@ -123,6 +128,9 @@
 			dependencies = (
 			);
 			name = TODOAPP;
+			packageProductDependencies = (
+				88CEE2272CAD2F1300A07FED /* Alamofire */,
+			);
 			productName = TODOAPP;
 			productReference = 88CEE2062CAC8FF300A07FED /* TODOAPP.app */;
 			productType = "com.apple.product-type.application";
@@ -151,6 +159,9 @@
 				Base,
 			);
 			mainGroup = 88CEE1FD2CAC8FF300A07FED;
+			packageReferences = (
+				88CEE2262CAD2F1300A07FED /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 88CEE2072CAC8FF300A07FED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -177,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88CEE22A2CAD349500A07FED /* TaskService.swift in Sources */,
 				88CEE2252CAC90FD00A07FED /* ListView.swift in Sources */,
 				88CEE2192CAC90B100A07FED /* TaskModel.swift in Sources */,
 				88CEE2242CAC90FD00A07FED /* ListRowView.swift in Sources */,
@@ -389,6 +401,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		88CEE2262CAD2F1300A07FED /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		88CEE2272CAD2F1300A07FED /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88CEE2262CAD2F1300A07FED /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 88CEE1FE2CAC8FF300A07FED /* Project object */;
 }
