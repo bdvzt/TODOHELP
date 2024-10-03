@@ -68,8 +68,6 @@ struct EditView_Previews: PreviewProvider {
     static var previews: some View {
         let testTask = TaskModel(id: UUID(), description: "d", status: false)
             
-
-//        let testTask = TaskModel(Id: "1", Description: "Test Task", Status: false)
         let testViewModel = ListViewModel()
         testViewModel.tasks = [testTask]
         

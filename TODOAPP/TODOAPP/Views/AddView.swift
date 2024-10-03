@@ -53,8 +53,7 @@ struct AddView: View {
                 case .success:
                     presentationMode.wrappedValue.dismiss()
                 case .failure(_):
-                    print("Error adding task: (error)")
-                    // Обработайте ошибку, например, покажите уведомление пользователю
+                    print("Error adding task")
                 }
             }
         presentationMode.wrappedValue.dismiss()

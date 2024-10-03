@@ -18,7 +18,6 @@ struct TaskModel: Identifiable, Codable {
         status = try values.decode(Bool.self, forKey: .status)
     }
 
-    // Добавить инициализатор для TaskModel
     init(id: UUID, description: String, status: Bool) {
         self.id = id
         self.description = description
@@ -29,13 +28,11 @@ struct TaskModel: Identifiable, Codable {
 struct TaskModelAdd: Encodable {
     let description: String
 
-    // Add the encode(to:) method
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(description, forKey: .description)
     }
 
-    // Add the CodingKeys enum
     enum CodingKeys: String, CodingKey {
         case description
     }
@@ -45,14 +42,12 @@ struct TaskModelEdit: Encodable {
     let id: UUID
     let description: String
 
-    // Add the encode(to:) method
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(description, forKey: .description)
     }
 
-    // Add the CodingKeys enum
     enum CodingKeys: String, CodingKey {
         case id
         case description
@@ -62,13 +57,11 @@ struct TaskModelEdit: Encodable {
 struct TaskModelDelete: Encodable {
     let id: UUID
 
-    // Add the encode(to:) method
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
     }
 
-    // Add the CodingKeys enum
     enum CodingKeys: String, CodingKey {
         case id
     }
@@ -78,14 +71,12 @@ struct TaskModelUpdate: Encodable {
     let id: UUID
     let status: Bool
 
-    // Add the encode(to:) method
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(status, forKey: .status)
     }
 
-    // Add the CodingKeys enum
     enum CodingKeys: String, CodingKey {
         case id
         case status

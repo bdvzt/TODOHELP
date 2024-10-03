@@ -27,7 +27,7 @@ struct ListView: View {
                                 .foregroundColor(.white)
                                 .font(.headline)
                                 .frame(height: 60)
-                                .frame(maxWidth: .infinity)
+                                .frame(maxWidth: 120)
                                 .background(Color.pink)
                                 .cornerRadius(20)
                         }
@@ -42,13 +42,11 @@ struct ListView: View {
         for task in tasksToDelete {
             let newTask = TaskModelDelete(id: task.id)
             listViewModel.deleteTask(task: newTask) { result in
-                // Handle the result of the deletion
                 switch result {
                 case .success:
                     print("Task deleted successfully!")
                 case .failure(let error):
-                    // Deletion failed, handle the error
-                    print("Error deleting task: (error.localizedDescription)")
+                    print("Error deleting task")
                 }
             }
         }
